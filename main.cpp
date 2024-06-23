@@ -7,7 +7,7 @@ typedef struct
   void (*hi)();
 } silly;
 
-auto
+__attribute((noinline)) auto
 teeHee(void) -> decltype(void())
 {
   const char *h[] = {"w", "w", "h", "e", "o"};
@@ -151,7 +151,7 @@ teeHee(void) -> decltype(void())
                : "%rax", "%rdi", "%rsi", "%rdx");
 }
 
-auto
+__attribute((noinline)) auto
 main(void) -> decltype(std::int32_t())
 {
   silly *hewwo = (silly *) malloc(sizeof(silly));
