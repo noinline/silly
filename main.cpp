@@ -1,4 +1,5 @@
-#include <iostream>
+#include <cstdint>
+#include <malloc.h>
 #include <unistd.h>
 
 typedef struct
@@ -7,190 +8,164 @@ typedef struct
 } silly;
 
 auto
-teeHee() -> decltype(void())
+teeHee(void) -> decltype(void())
 {
-  const char *h = "w";
-  const char *h1 = "w";
-  const char *h2 = "h";
-  const char *h3 = "e";
-  const char *h4 = "o";
-
-  const char *w = "l";
-  const char *w1 = "d";
-  const char *w2 = "r";
-  const char *w3 = "w";
-  const char *w4 = "o";
-
-  const char *b = ">";
-  const char *b1 = "!";
-  const char *b2 = " ";
-  const char *b3 = "<";
-  const char *b4 = "w";
-  const char *b5 = "\n";
-
+  const char *h[] = {"w", "w", "h", "e", "o"};
+  const char *w[] = {"l", "d", "r", "w", "o"};
+  const char *b[] = {">", "!", " ", "<", "w", "\n"};
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(h2)
+               : "r"(h[2])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(h3)
+               : "r"(h[3])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(h)
+               : "r"(h[0])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(h1)
+               : "r"(h[1])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(h4)
+               : "r"(h[4])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b2)
+               : "r"(b[2])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(w3)
+               : "r"(w[3])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(w4)
+               : "r"(w[4])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(w2)
+               : "r"(w[2])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(w)
+               : "r"(w[0])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(w1)
+               : "r"(w[1])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b1)
+               : "r"(b[1])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b2)
+               : "r"(b[2])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b)
+               : "r"(b[0])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b4)
+               : "r"(b[4])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b3)
+               : "r"(b[3])
                : "%rax", "%rdi", "%rsi", "%rdx");
-
   asm volatile("movq $1, %%rax;"
                "movq $1, %%rdi;"
                "movq %0, %%rsi;"
                "movq $1, %%rdx;"
                "syscall;"
                :
-               : "r"(b5)
+               : "r"(b[5])
                : "%rax", "%rdi", "%rsi", "%rdx");
 }
 
 auto
-main(void) -> decltype(int())
+main(void) -> decltype(std::int32_t())
 {
   silly *hewwo = (silly *) malloc(sizeof(silly));
-
   hewwo->hi = &teeHee;
 
   ((void (*)())(hewwo->hi))();
-
   free(hewwo);
-  return 0;
+
+  constexpr std::int32_t rawrturn{};
+  asm volatile("mov $60, %%rax;"
+               "mov %[rawrturn], %%rdi;"
+               "syscall;"
+               :
+               : [rawrturn] "i"(1) /* oh wow :3 */
+               : "%rax", "%rdi");
+  __builtin_unreachable();
 }
