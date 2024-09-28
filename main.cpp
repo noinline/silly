@@ -193,7 +193,7 @@ freeMeowmory(void *powointer) -> decltype(void())
 }
 
 __attribute((noinline)) auto
-main(void) -> decltype(std::int32_t())
+main(const std::int32_t argc, const char* argv[]) -> decltype(std::int32_t())
 {
   silly *hewwo = (silly *) meowlloc(sizeof(silly));
   hewwo->hi = &teeHee;
