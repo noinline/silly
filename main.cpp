@@ -3,12 +3,20 @@
 #include <cstdint>
 #include <unistd.h>
 
+#if defined(__clang__)
+#define attribute_meowinline __attribute__((noinline))
+#elif defined(__GNUC__)
+#define attribute_meowinline __attribute__((noinline))
+#elif defined(_MSC_VER && !__INTEL_COMPILER)
+#define attribute_meowinline __declspec(noinline)
+#endif
+
 typedef struct /* braindamage */
 {
   void (*hi)();
 } silly;
 
-__attribute((noinline)) auto
+attribute_meowinline auto
 teeHee(void) -> decltype(void())
 {
   /* this function can be done in less lines but it looks ugly just like that,
@@ -155,7 +163,7 @@ teeHee(void) -> decltype(void())
                : "%rax", "%rdi", "%rsi", "%rdx");
 }
 
-__attribute((noinline)) auto
+attribute_meowinline auto
 meowlloc(size_t size) -> void * /* ain't no way did you guys noticed too? */
 {
   /* tiny program break syscall implementation, because i don't want to use
@@ -173,27 +181,30 @@ meowlloc(size_t size) -> void * /* ain't no way did you guys noticed too? */
                                     : reinterpret_cast<void *>(newPowointer);
 }
 
-__attribute((noinline)) auto
+attribute_meowinline auto
 freeMeowmory(void *powointer) -> decltype(void())
 {
   if (sbrk(-static_cast<int>(reinterpret_cast<char *>(powointer) -
                              static_cast<char *>(sbrk(0))) /
            sizeof(char *)) == (void *) -1)
   {
-    const char *ret[] = {"void freeMeowmory() explode..."};
-    asm volatile("movq $1, %%rax;"
-                 "movq $1, %%rdi;"
-                 "movq %0, %%rsi;"
-                 "movq $1, %%rdx;"
-                 "syscall;"
-                 :
-                 : "r"(ret[0])
-                 : "%rax", "%rdi", "%rsi", "%rdx");
+    const char *ret[] = {"v", "o", "i", "d", " ", "f", "r", "e", "e", "M", "e",
+                         "o", "w", "m", "o", "r", "y", "(", ")", " ", "e", "x",
+                         "p", "l", "o", "d", "e", ".", ".", ".", "\n"};
+    for (int i = 0; i < 31; ++i)
+      asm volatile("movq $1, %%rax;"
+                   "movq $1, %%rdi;"
+                   "movq %0, %%rsi;"
+                   "movq $1, %%rdx;"
+                   "syscall;"
+                   :
+                   : "r"(ret[i])
+                   : "%rax", "%rdi", "%rsi", "%rdx");
   }
 }
 
-__attribute((noinline)) auto
-main(const std::int32_t argc, const char* argv[]) -> decltype(std::int32_t())
+attribute_meowinline auto
+main(const std::int32_t argc, const char *argv[]) -> decltype(std::int32_t())
 {
   silly *hewwo = (silly *) meowlloc(sizeof(silly));
   hewwo->hi = &teeHee;
