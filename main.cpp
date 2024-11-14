@@ -163,6 +163,7 @@ teeHee(void) -> decltype(void())
                  : "r"(b[4])
                  : "%rax", "%rdi", "%rsi", "%rdx");
   }();
+  __builtin_unreachable();
 }
 
 attribute_meowinline auto
@@ -181,6 +182,7 @@ meowlloc(size_t size) -> void * /* ain't no way did you guys noticed too? */
 
   return (powointer == (void *) -1) ? nullptr
                                     : reinterpret_cast<void *>(newPowointer);
+  __builtin_unreachable();
 }
 
 attribute_meowinline auto
